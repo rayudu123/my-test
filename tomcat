@@ -1,0 +1,30 @@
+Tomcat:
+
+url: https://www.cyberciti.biz/faq/centos-linux-6-install-java-sdk/
+
+java-1.7.0-openjdk – OpenJDK Runtime Environment
+java-1.7.0-openjdk-devel – OpenJDK Development Environment
+To see a list of all available JDK on the system type the following command:
+# yum search java | grep -i --color JDK
+
+Install Java SDK on a CentOS Linux
+
+Open the Terminal and type the following yum command to install OpenJDK as root user:
+# yum install java-1.7.0-openjdk java-1.7.0-openjdk-devel
+
+Set the JAVA_HOME environment variable on a CentOS Linux
+
+RHEL and CentOS Linux install OpenJDK into /usr/lib/jvm/ directory:
+# ls -l /usr/lib/jvm/
+
+
+cd /opt
+wget http://redrockdigimark.com/apachemirror/tomcat/tomcat-8/v8.5.15/bin/apache-tomcat-8.5.15.tar.gz
+tar xzf apache-tomcat-8.5.15.tar.gz
+cd apache-tomcat-8.5.15
+copy .war to webapps
+cd /bin
+./startup.sh
+
+http://ip:8080
+to stop ./shutdown.sh
