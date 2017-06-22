@@ -1,0 +1,34 @@
+Chef :
+https://www.chef.io/chef/
+
+Chef DK:
+The Chef DK gives you the tools you need to develop and test your infrastructure automation code locally from your workstation, before deploying changes into production. For example, the Test Kitchen tool lets you run tests in an isolated environment. Chef DK also includes InSpec, a powerful language for writing infrastructure tests.
+Chef Server:
+The Chef Server acts as a central repository for cookbooks as well as for information about every node it manages. Chef cookbooks contain code that describes the desired state of your infrastructure.
+
+Prerequisites:
+he Chef server has the following prerequisites:
+An x86_64 compatible system architecture; Red Hat Enterprise Linux and CentOS may require updates prior to installation
+A resolvable hostname that is specified using a FQDN or an IP address
+A connection to Network Time Protocol (NTP) to prevent clock drift
+A local mail transfer agent that allows the Chef server to send email notifications
+Using cron and the /etc/cron.d directory for periodic maintenance tasks
+Disabling the Apache Qpid daemon on CentOS and Red Hat systems
+Optional. A local user account under which services will run, a local user account for PostgreSQL, and a group account under which services will run. See UIDs and GIDs for more information.
+
+Install the Chef Server:
+There are three configuration scenarios for the Chef server:
+Standalone (everything on a single machine)
+High availability (machines configured for front-end and back-end, allowing for failover on the back-end and load-balancing on the front-end, as required)
+Tiered (machines configured for front-end and back-end, with a single back-end and load-balancing on the front-end, as required)
+Standalone:
+
+
+
+
+Chef Workstation:
+
+
+Chef Node:
+A node is any physical or virtual machine in your network that is managed by the Chef server. The Chef client runs on each node and securely communicates with the Chef server to get the latest configuration instructions. The Chef client uses the instructions to bring the node to its desired state.
+
