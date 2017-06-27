@@ -1,0 +1,16 @@
+
+
+yum remove java-1.7.0-openjdk -y
+cd /opt
+yum install epel-release -y
+yum install java-1.8.0-openjdk.x86_64 -y
+export JAVA_HOME=/usr/lib/jvm/jre-1.8.0-openjdk
+export JRE_HOME=/usr/lib/jvm/jre
+cd /opt
+wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
+rpm --import http://pkg.jenkins-ci.org/redhat-stable/jenkins-ci.org.key
+yum install jenkins -y
+service jenkins start
+chkconfig jenkins on
+
+https://www.youtube.com/watch?v=EOp2VVRHrKQ

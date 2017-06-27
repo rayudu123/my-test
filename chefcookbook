@@ -1,0 +1,316 @@
+
+Coockbook stucture:
+
+url:http://www.thegeekstuff.com/2016/06/chef-cookbook-directory-structure/
+
+
+
+When you create a new Chef cookbook, it will automatically create certain directories and files. 
+You’ll then be adding your own custom files on top these default files and directories.
+
+For every chef cookbook you create, 
+you’ll see 8 directories and 3 files under the top-level for that particular cookbook.
+
+when you create a new cookbook using knife command, 
+it will create a default directory structure as shown below.
+
+
+# knife cookbook create apache
+
+# ls -al cookbooks/apache
+drwxr-xr-x.  3 root root   20 Jun  1 09:28 templates
+drwxr-xr-x.  2 root root    6 Jun  1 09:28 resources
+drwxr-xr-x.  2 root root    6 Jun  1 09:28 providers
+drwxr-xr-x.  2 root root    6 Jun  1 09:28 libraries
+drwxr-xr-x.  3 root root   20 Jun  1 09:28 files
+drwxr-xr-x.  2 root root    6 Jun  1 09:28 definitions
+drwxr-xr-x.  2 root root   23 Jun  1 09:28 recipes
+drwxr-xr-x.  2 root root   23 Jun  1 09:28 attributes
+-rw-r--r--.  1 root root 1472 Jun  1 09:28 README.md
+-rw-r--r--.  1 root root  282 Jun  1 09:28 metadata.rb
+-rw-r--r--.  1 root root  463 Jun  1 09:28 CHANGELOG.md
+
+
+
+Also, keep in mind that when you use chef generate cookbook command, 
+you’ll see a directory structure as shown below.
+
+# chef generate cookbook apache
+
+# ls -al cookbooks/apache
+drwxr-xr-x. 3 root root   24 Jun  1 09:28 test
+drwxr-xr-x. 3 root root   38 Jun  1 09:28 spec
+drwxr-xr-x. 2 root root   23 Jun  1 09:28 recipes
+drwxr-xr-x. 7 root root 4096 Jun  1 09:28 .git
+-rw-r--r--. 1 root root  231 Jun  1 09:28 metadata.rb
+-rw-r--r--. 1 root root   65 Jun  1 09:28 README.md
+-rw-r--r--. 1 root root 1067 Jun  1 09:28 chefignore
+-rw-r--r--. 1 root root   47 Jun  1 09:28 Berksfile
+-rw-r--r--. 1 root root  343 Jun  1 09:28 .kitchen.yml
+-rw-r--r--. 1 root root  126 Jun  1 09:28 .gitignore
+
+
+For a typical scenario, you’ll be using knife command to create a cookbook. So, 
+we’ll focus on the default directory structure that gets created as part of knife cookbook create command.
+
+
+
+1. Attributes:
+
+Sometimes you might use hard-coded values (for example, directory name, filename, username, etc.) 
+at multiple locations inside your recipes. Later when you want to change this value, 
+it becomes a tedious process, 
+as you have to browse through all the recipes that contains this value and change them accordingly.
+Instead, you can define the hard-code value as variable inside an attribute file, 
+and use the attribute name inside the recipe. This way when you want to change the value, 
+you are changing only at one place in the attribute file.
+These are the different attribute types available: default, force_default, normal, override, force_override, automatic
+Inside your cookbook, for most situations, you’ll be using the default attribute type.
+The following is a sample attribute file, 
+where I’ve defined mysql related hard-coded values that I need to eventually use in multiple recipes. 
+In this example, the attribute file was created under ~/chef-repo/cookbooks/thegeekstuff/attributes directory.
+
+Ex:
+default['mysql']['dir'] = '/data/mysql'
+default['mysql']['username'] = 'dbadmin'
+default['mysql']['dbname'] = ‘devdb’
+
+
+
+2. Resources:
+
+You’ll see the resources directory only from Chef 12.5 version and above.
+Chef provides several built in resources for you to use. For example, 
+using chef’s built-in resource you can manage packages, services, files, directories on your system.
+But, if you have a complex requirement that is specific to your application or tool, 
+you can create your own custom resource, and place them under the resources directory. 
+Once you place your custom resource under this directory, 
+you can use them in your recipes just like how you would use any other chef’s build-in recipes.
+The following is a simple custom resource example. 
+This file was created under ~/chef-repo/cookbooks/thegeekstuff/resources directory.
+There are three parts to this example: 
+1) Declare custom properties in the beginning 
+2) Load current property values 
+3) Create action blocks for this custom resource.
+
+Ex:
+property :myapp_name, String, default: 'Default Name for My App'
+
+load_current_value do
+  # write code to load the current value for your properties
+end
+
+action :create do
+  file '/home/tomcat/myapp/config.cfg' do
+    content 'location=west'
+  end
+  # Write additional code to define other aspects of your app creation
+end
+
+action :delete do
+  #write code to delete your application
+end 
+
+
+
+
+3. Definition:
+
+If you are using chef-client 12.5 or above, Chef recommends that you don’t use definitions anymore, 
+and use the custom resources (which is explained above). Definition might be deprecated in future version.
+Definition is similar to a compile-time macros that can be used in multiple recipes.
+Definitions are processed when the resources are compiled, 
+and these are not same as resources as definition don’t support properties like only_if, not_if, etc.
+
+
+Ex:
+define :app_config do
+  file '/home/tomcat/myapp/config.cfg' do
+    content 'location=west'
+  end
+end
+
+
+The following is a simple definition example. In this example, app_config is the definition resource name. 
+This definition file was created under ~/chef-repo/cookbooks/thegeekstuff/definitions directory.
+
+
+
+
+4. Files:
+
+If you want certain files to be copied over to all your remote nodes as part of Chef deployment, 
+you can copy those files over to “files” directory under your cookbook.
+A particular file that is located under the files directory can be copied over to one or 
+more remote nodes using cookbook_file resource.
+In the following example, I want to copy the dblogin.php file to the remote server. 
+In this case, I might create a recipe using cookbook_file resource as shown below.
+First, make sure you copy the file mentioned in the source property 
+(i.e dblogin.php) in the following recipe to your ~/chef-repo/cookbooks/{your-cookbook-name}/files directory.
+
+
+Ex:
+cookbook_file '/home/tomcat/myapp/login/dblogin.php' do
+  source 'dblogin.php'
+  owner 'tomcat'
+  group 'tomcat'
+  mode '0755'
+  action :create
+end
+
+
+
+
+
+
+5. Libraries
+
+All custom library files that you create for a specific cookbook should be placed under the “libraries” directory.
+Library files should be written in ruby language.
+You can write a library code that can either change the behavior of some of the existing chef functionality, 
+or to create a new functionality that is not currently satisfied by any of the existing chef resources.
+Basically you’ll use libraries to create a custom chef resource that will solve some specific problem based on your requirement.
+You can start a brand new library without extending an existing library by simply starting your library code 
+(for example: MyCustomLibrary) with this line at the beginning: class MyCustomLibrary
+If you are existing an existing Chef functionality, you should extend those appropriate Chef classes. 
+In the following example, we are extending Chef database resource. 
+This is just the first few lines of a custom library code that shows how you start the library file definition.
+
+
+Ex:
+class Chef
+  class Resource
+    class MyDBResource < Chef::Resource::Database
+..
+
+
+
+
+
+6. Providers:
+
+All the providers that you write for your particular custom requirement should go under providers directory.
+You’ll use custom providers when you want to inform chef-client how to manage a specific action. 
+You can define multiple actions for your custom provider, and inform chef-client how to manage those actions.
+You’ll typically use custom provider when you are using LWRP (lightweight resource providers), in which case, 
+you’ll first define a custom resource with your own set of actions, and then you’ll write custom providers, 
+where you’ll write ruby code to tell chef-client what exactly needs to be done for those actions.
+For example, a custom provider ( dbcluster.rb ) file located under “providers” directory might have few custom actions defined as shown below.
+
+
+Ex:
+action :check do
+..
+end
+
+action :setmaster do
+..
+end
+
+
+
+
+
+
+7. Recipes
+
+Chef recipe is the heart and soul of Chef functionality. 
+This is where you’ll specify all configurations and setups that you want to be executed on your remote servers (nodes).
+Recipe are written in Ruby language. Recipe will be stored inside a cookbook.
+You can have multiple recipes (which is recommended for complex system configuration) inside one cookbook.
+You can also include an existing recipe in your current recipe. 
+This way you can create a new recipe that is dependent on another recipe.
+In simple terms, recipes are bunch of Chef resources that you’ll call to setup a configuration. 
+For every resource that you include in your recipe, you can specify what actions from that resource you want to be executed, 
+and you can also set appropriate attribute values, etc.
+You can also write your own custom logic using Ruby inside the Chef recipe for a specific resources that you are calling.
+Everything that you write inside a recipe is executed sequentially.
+When you have multiple recipes inside a cookbook, the order in which these recipes will be executed can be specified using a run-list.
+The following is a simple recipe example file ( mysetup.rb ) 
+that can be placed under “recipes” directory which will install the given packages 
+and start the httpd services on a remote node where this recipe is executed.
+
+
+Ex:
+package [‘httpd’, 'gcc', 'gcc-c++', 'nfs-utils'] do
+  action :install
+end
+
+service 'httpd' do
+  action [:enable, :start]
+end
+
+
+
+
+
+8. Templates
+
+Template is similar to files, but the major difference is that using template we can dynamically generate static text files.
+Inside template we can have ruby programming language statements, which can then be used to generate some content dynamically.
+Chef templates are just an ERB, which is embedded ruby template.
+To use a template, first create the template files using ERB and place it under the “templates” directory.
+Also, inside the cookbook recipe we should use template resource to call our template.
+For example, place the following index.html.erb 
+template file under ~/chef-repo/cookbooks/{your-cookbook-name}/templates/default/ directory.
+
+
+<html>
+  <body>
+    <h1>Hello world on <%= node[:fqdn] %></h1>
+  </body>
+</html>
+
+
+Iniside the recipie file, we can call the above template using the template source as shown below.
+
+
+Ex:
+template '/home/tomcat/myapp/index.html' do
+  source 'index.html.erb'
+  mode '0644''
+  owner 'tomcat'
+  group 'tomcat'
+end
+
+
+
+
+
+9. Cookbook Doc Files:
+
+When you create cookbook, it creates these two documentation files the top-level of your cookbook directory: 
+1) README.md 2) CHANGELOG.md
+Maintaining these two files are very important when multiple people are working on your cookbook.
+The first file README.md is where you’ll document everything about your cookbook. By default, when a cookbook is created, 
+it already gives an excellent template inside the README.md file for you to start your documentation.
+Once you’ve deployed a cookbook on production, as a best practice, 
+any changes that you make to your cookbook after that should have a updated new version number. 
+Inside the CHANGELOG.md file, you’ll document specifically what changes were done in each and every version of your cookbook.
+Both README.md and CHANGELOG.md file uses the Markdown template format.
+
+
+
+
+10. Cookbook Metadata File:
+
+As the name suggests, metadata.rb file is used to store certain metadata information about your cookbook. 
+This metadata.rb file is located at the top-level of the cookbook directory. 
+I.e ~/chef-repo/cookbooks/{your-cookbook-name}/metadata.rb
+The information inside the metadata file is used by the chef server to make sure it deploys the correct cookbook versions on the individual remote nodes.
+When you upload your cookbook to the Chef server, the metadata file is compiled and stored in the Chef server as JSON file.
+By default when you create a cookbook using knife command, it generates the metadata.rb file.
+There are certain metadata parameters that you can use inside this file. 
+For example, you can specify the current version number of your cookbook. 
+You can also specify which chef-client versions will be supported by this cookbook, etc. 
+The following example shows a partial metadata.rb file.
+
+Ex:
+name 'devdb'
+maintainer_email 'ramesh@thegeekstuff.com'
+description 'Setup the Development DB server'
+version '2.5.1'
+chef_version ">= 12.9"
+
+
+
