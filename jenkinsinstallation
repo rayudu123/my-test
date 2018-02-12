@@ -4,6 +4,8 @@ yum remove java-1.7.0-openjdk -y
 cd /opt
 yum install epel-release -y
 yum install java-1.8.0-openjdk.x86_64 -y
+
+yum install java-1.8.0-openjdk java-1.8.0-openjdk-devel -y
 export JAVA_HOME=/usr/lib/jvm/jre-1.8.0-openjdk
 export JRE_HOME=/usr/lib/jvm/jre
 cd /opt
