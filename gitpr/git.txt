@@ -1,0 +1,8 @@
+git: 
+
+git config 	--global user.name sudhaknv
+
+
+Pull review0--->COde review
+Code is fine we will approve
+If code is not fine will select rework or comment

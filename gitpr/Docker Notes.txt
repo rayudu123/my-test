@@ -1,0 +1,416 @@
+Nagios for 
+
+Batch server
+friendseduscm@gmail.com
+Friends@123
+
+VM vs Docker:
+
+Virtual Machien : Previously we used VMS where its structure is like this--->Server-->HOst os-->Hypervisor-->Multiple OS--->bins/libs/APplications
+Docker : Server--->Host os---> DOcker Image-->Docker Engine--->Multiples OS 
+
+Major difference is again no need to install OS on each server Docker will share OS from image basic bin & lib files to run application.
+
+
+
+
+server:
+OS
+vm --->LIb files / softwares/LB pool and DNs creation -->
+A hypervisor, also known as a virtual machine monitor or VMM, is software that creates and runs virtual machines (VMs).
+ A hypervisor allows one host computer to support multiple guest VMs by virtually sharing its resources, such as memory and processing. 
+
+
+
+
+
+Need of physical servers are not required
+images that contain everything needed to run them: code, runtime environment, libraries, and configuration. 
+Images run in containers, which are discrete processes that take up only as many resources as any other executable.
+It’s important to note that Docker containers don’t run in their own virtual machines, but share a Linux kernel. 
+Compared to virtual machines, containers use less memory and less CPU.
+Reducing setup time
+Compatibilty issue resolved 
+
+
+
+Advantages:
+Consistent test environment for development and QA.
+Cross-platform packages called images.
+Isolation and encapsulation of application dependencies.
+Ability to scale efficiently, easily, and in real time.
+Enhances efficiency via easy reuse of images.
+
+
+https://www.youtube.com/watch?v=WDWB3-uId2U-
+Docker Turorial in Telugu | DevOpsbyRushi | 91-7013882648 (Youtube Rushi)
+
+
+Version compatibilty:
+Conisde one ICICI mobile app each application like -->FUnds transfer developed on java7 ,build with Maven 3 and on tomcat 7
+Another application pay mobile bill-->Build with developer on on java8 ,build with Maven 3.6.2 and on tomcat 8 
+
+SO when developed pull code from GITHUB to test server (tomcat8,java8 ) then only mobile bill application will come and Fundtransfer will as it has version compatibilty issue
+SO another test server with java7 tomcat 7  should be taken and two pllications should start listening on two difrnt servers(disk space,OS,Maintencance issue)
+
+
+Server ---> Virtualization --->DOcker
+
+Server (80/90s) --> Before procuring server we have to roughly analizy disk cpu and ram... With new requiremnet its head ache to increase all again or have to take new one
+Virualization --> On our laptop we have 12gb ram 1000gb HHD--> Install VM (s/w) which acts as hypervisor--->In vm u can install number of os's/w
+1) Ubuntu 3gb (9gb lft),300gb HDD 2)WIndows 4gb Ram (5gb left) 400gb hdd 3)n OS installations
+It will divide our computer resoures to each OS
+
+Virtualization resolved issue of using 3 OS (3 different laptops) in single Laptop ( saved 50*3)
+
+Disadvantages-->
+ VM s/w will occupy 2gb space in our resources
+ License Key paid version
+ Performance reduce of Linux (system will get hanged)..--> when hits starting to our services installed on  VM's server will get crashed
+In normal servers Ubuntu -->8gb, Windows -->10gb
+ In VM to install package 8(gb) confiugrations and to bring Server up it will take 3hours for 1st time ..(Aws 5minutes)
+ 
+                                                          Docker
+														  
+														  
+  DOcker is a openplatform for developing ,shipping and running applications.Docker enables you to seperate our applications from infrastructure so you can deliver s/w quickly with Docker.
+YOu can manage your infrastructure in same way you manage your applications. By taking advantage of methodolgies for shipping,testing and deploying code quickly,you can
+significantly reduce the delay between writing code & running it in application...	  
+
+
+Docker FIle-->
+1java8
+2)code java
+3)version
+4)files
+5)Dependencies
+
+WIll create docker files with above requirements and after bringup incase of any issue on test UAT dev will let us know comptabilty issue then we will change simple in 
+Docker file..No need to change nothing in aws / maven /update etc.. Simple change in Docker file is enough
+
+On Dell Laptop Install Ubuntu OS -->Install Dokcer thats it no Virtualization required		
+
+In Docker Ubuntu size will be 50 to 100 MB
+
+Server uptime will be less than 1sec
+
+DOcker is light weighted
+Backups with single command
+Easy to use and performance improvement
+
+   
+ 
+
+
+ 
+****************************************88
+
+My Drive
+Today
+6:46 PM
+
+You uploaded an item
+Text
+docker.txt
+Last month
+Jan 28
+
+You shared 4 items
+Image
+DSC_1096.JPG
+Image
+DSC_1100.JPG
+Image
+DSC_1117.JPG
+Image
+DSC_1066.JPG
+Can view
+Anyone on the internet with this link
+Jan 28
+
+You uploaded 4 items
+Image
+DSC_1117.JPG
+Image
+DSC_1100.JPG
+Image
+DSC_1066.JPG
+Image
+DSC_1096.JPG
+Last year
+Sep 18, 2020
+
+You shared 291 items
+Unknown File
+dwintl20.dll
+Audio
+groove12.opa
+Unknown File
+oct.chm
+Audio
+inf12.opa
+Audio
+ic12.opa
+Unknown File
+octres.dll
+
+Can edit
+RAMAKRISHNA RAM
+Sep 18, 2020
+
+You uploaded 2 items
+Unknown File
+AccLR.cab
+Unknown File
+AccessMUI.msi
+Sep 18, 2020
+
+
+
+*********************
+What is the use of the docker save and docker load commands?
+A Docker image can be exported as an archive via the docker save command. For example:
+
+docker save -o <container-export-path>.tar <container-name>
+The exported Docker image can then be imported to another Docker host via the docker load command:
+
+docker load -i <container-path>.tar
+
+
+You uploaded 2 items
+Unknown File
+GrooveMUI.msi
+Unknown File
+GrooveLR.cab
+Sep 18, 2020
+
+You uploaded an item
+Unknown File
+Proof.cab
+Sep 18, 2020
+
+You uploaded an item
+Unknown File
+Proof.cab
+Sep 18, 2020
+
+You uploaded an item
+Unknown File
+Proof.cab
+Sep 18, 2020
+
+You uploaded an item
+Unknown File
+oct.dll
+Sep 18, 2020
+
+You uploaded an item
+Unknown File
+files12.cat
+Sep 18, 2020
+
+You uploaded 4 items
+Unknown File
+OWOW64WW.cab
+Unknown File
+osetup.dll
+Unknown File
+EnterWW.cab
+Unknown File
+EnterpriseWW.msi
+Sep 18, 2020
+
+You uploaded 2 items
+Unknown File
+ExcelMUI.msi
+Unknown File
+ExcelLR.cab
+Sep 18, 2020
+
+You uploaded 2 items
+Unknown File
+InfoPathMUI.msi
+Unknown File
+InfLR.cab
+Sep 18, 2020
+
+You uploaded 2 items
+Unknown File
+OfficeMUI.msi
+Unknown File
+OfficeLR.cab
+Sep 18, 2020
+
+You uploaded an item
+Unknown File
+OnoteLR.cab
+Docker:
+
+Instead of creationg 
+Before hypervisor -->
+
+
+
+
+Elastic Sky X Integrated
+
+Virutalization--->
+Linux containerzation concept
+Batch server overview
+
+
+Veritas Volume Manager
+
+
+Docker--->We used to install applications on physical servers,
+
+Docker HUB:
+
+
+
+Docker images
+docker ps -->It will show only which containers are running
+docker ps -a -->It will show all container which all are running/not running
+
+
+DOcker pull 
+docker run & pull
+
+
+Docker run -it ubuntu --->-it interactive mode
+
+**************************************************************
+
+
+
+sudo 
+docker pull ubuntu --->It will download unbunt
+
+Docker images --->Will display list of all images download
+
+
+We will get o/p permission Denied everytime.. For resoltion
+
+sudo usermod -aG docker $USER--->Adding ubuntu as sudo user
+
+Change the permissions of docker socket to be able to connect to the docker
+daemon /var/run/docker.sock
+
+sudo chmod 666 /var/run/docker.sock
+
+Change images to container:
+
+docker run -it imageid --->it will take us inside of container (-it ) user 
+Interactive mode (it)
+
+docker run -it imageid-->It will create container but it wont enter inside
+
+ctrl-pq it will exit from container without killing the session
+
+docker ps --->to check all running containers
+dockser ps -a -->to check all stopped and running containers
+
+docker exec -it cid /bin/sh
+
+In Above /bin/sh will have PID 1 and will get killed if we do exit from container
+
+docker stop container cid
+docker start/restart container cid
+docker rm cid
+
+to  remove running Container using docker rm cid -f
+
+DOcker rmi image id--->To remove docker image
+
+Inspect Node:
+Docker inspect node
+
+su ubuntu    
+
+
+********************************
+
+Runinng a webserivce in a container:
+
+docker run -d --name newwebserver -p 8070:80 visualpath/devops-ci
+
+we started container in background by option -d, 
+Above image is apache webserver running with port 80 and is mapped to 8070. If we access hostmachine IP on port 8070 we will get service running on port 80 from containers.
+COntainers are not directly accessed by IPS because container IP's are not permanent..
+http://hostip:8070
+
+******
+
+docker run -p 8080:8080 -p 5050:5050 -v /your/home/:/var/jenkins_home jenkins
+
+Here we are mapping two ports 8080 and 5000, Host and container ports are same which is ok if ports are not busy...
+COntainers dats is not persistent if we container got deleted.. If we want to keep data safe on host machine..we can use -V flag which is for volume..
+Now we will always have safe data on /var/jenkins_home on host machine
+
+**********
+
+
+Dokcer files:
+
+DOcker can build images automatically by reading the instructions from a DOcker File...a text file that contains all the commands...
+
+Create an empty directory and put file in it with name Dockerfile...
+
+#Use of official Python runtime as a basic image
+
+From python:2.7-slim
+
+#set working directory to /app
+
+WORKDIR /app
+
+#copy the current directory contents into the container at /app
+
+ADD ./app
+
+#Install any needed packaged specfied in requirements.txt
+
+RUN pip install -r requirements.txt
+
+#Make port 80 available to the world outside this container
+
+EXPOSE 80
+	
+	
+DOcker COmpose:
+
+docker-compose -v (docker-compose --version) (to check version & it will be auto install with docker)
+
+Lets say amazon have hundreds of modules like cart(webserver0) -->db, productt category -->db, wallet --->Db like that each module(webserver) with each db (different sizes)
+We can create all modules with a single file called docker-compose
+
+Tool for defining and running multicontainer docker applications
+Use yaml files to configure application services (docker-compose.yml)
+can start and stop all services with a single command --->docker compose up   docker compose down
+Can scale up selected services when required
+
+version: '3'
+
+services:
+ 
+ 
+ web:
+   image: nginx
+   ports:
+   -9090:80
+   
+   database:
+   image: redis
+   
+   
+ docker-compose config to check above syntax is fine/not
+  docker-compose up (command to execute above)
+  docker-compose up -d(in detach mode)
+   
+   
+   
+   
+scaling concept:
+In above we have 2 different services web and database.. If we have requirement to increase 
+   -scale
+   docker-compose -d --scale database=4 (It will create 4databases which are like previous one)
